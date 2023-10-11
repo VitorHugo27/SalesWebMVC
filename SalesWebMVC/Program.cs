@@ -3,7 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using SalesWebMVC.Data;
 using SalesWebMVC.Services;
 using System.Configuration;
-
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddDbContext<SalesWebMVCContext>(options =>
@@ -51,5 +52,16 @@ using (var scope = app.Services.CreateScope())
     var seedingService = services.GetRequiredService<SeedingService>();
     seedingService.Seed();
 }
+
+var enUS = new CultureInfo("en-US");
+var localizationOptions = new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture(enUS),
+    SupportedCultures = new List<CultureInfo> { enUS },
+    SupportedUICultures = new List<CultureInfo> { enUS }
+};
+
+app.UseRequestLocalization(localizationOptions);
+
 
 app.Run();
