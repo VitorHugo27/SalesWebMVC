@@ -54,15 +54,15 @@ using (var scope = app.Services.CreateScope())
     seedingService.Seed();
 }
 
-var enUS = new CultureInfo("en-US");
-var localizationOptions = new RequestLocalizationOptions
-{
-    DefaultRequestCulture = new RequestCulture(enUS),
-    SupportedCultures = new List<CultureInfo> { enUS },
-    SupportedUICultures = new List<CultureInfo> { enUS }
-};
+//var enUS = new CultureInfo("en-US");
+//var localizationOptions = new RequestLocalizationOptions
+//{
+//    DefaultRequestCulture = new RequestCulture(enUS),
+//    SupportedCultures = new List<CultureInfo> { enUS },
+//    SupportedUICultures = new List<CultureInfo> { enUS }
+//};
 
-app.UseRequestLocalization(localizationOptions);
+//app.UseRequestLocalization(localizationOptions);
 
 
 app.Run();
