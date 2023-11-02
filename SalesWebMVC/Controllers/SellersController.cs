@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using SalesWebMVC.Models;
 using SalesWebMVC.Models.ViewModels;
 using SalesWebMVC.Services;
@@ -22,7 +21,6 @@ namespace SalesWebMVC.Controllers
         public async Task<IActionResult> Index()
         {
             var list = await _sellerService.FindAllAsync();
-
             return View(list);
         }
 
@@ -37,12 +35,12 @@ namespace SalesWebMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Seller seller)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    var departments = await _departmentService.FindAllAsync();
-            //    var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
-            //    return View(viewModel);
-            //}
+            if (ModelState.IsValid)
+            {
+                var departments = await _departmentService.FindAllAsync();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
+            }
             await _sellerService.InsertAsync(seller);
             return RedirectToAction(nameof(Index));
         }
@@ -54,7 +52,7 @@ namespace SalesWebMVC.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
-            var obj = await _sellerService.FindByidAsync(id.Value);
+            var obj = await _sellerService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not found" });
@@ -86,7 +84,7 @@ namespace SalesWebMVC.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
-            var obj = await _sellerService.FindByidAsync(id.Value);
+            var obj = await _sellerService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not found" });
@@ -102,7 +100,7 @@ namespace SalesWebMVC.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
-            var obj = await _sellerService.FindByidAsync(id.Value);
+            var obj = await _sellerService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not found" });
@@ -117,12 +115,12 @@ namespace SalesWebMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Seller seller)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    var departments = await _departmentService.FindAllAsync();
-            //    var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
-            //    return View(viewModel);
-            //}
+            if (ModelState.IsValid)
+            {
+                var departments = await _departmentService.FindAllAsync();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
+            }
             if (id != seller.Id)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id mismatch" });
