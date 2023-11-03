@@ -16,6 +16,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
             <th><a>Ações</a></th>
         </tr>
     </thead>
@@ -25,6 +28,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <th class="fixed">
                     <a style="color: #006400" asp-action="Edit" asp-route-id="@item.Id">

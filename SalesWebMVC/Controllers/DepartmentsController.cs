@@ -22,9 +22,9 @@ namespace SalesWebMVC.Controllers
         // GET: Departments
         public async Task<IActionResult> Index()
         {
-              return _context.Department != null ? 
-                          View(await _context.Department.ToListAsync()) :
-                          Problem("Entity set 'SalesWebMVCContext.Department'  is null.");
+            return _context.Department != null ?
+                        View(await _context.Department.ToListAsync()) :
+                        Problem("Entity set 'SalesWebMVCContext.Department'  is null.");
         }
 
         // GET: Departments/Details/5
@@ -150,14 +150,13 @@ namespace SalesWebMVC.Controllers
             {
                 _context.Department.Remove(department);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool DepartmentExists(int id)
         {
-          return (_context.Department?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Department?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
